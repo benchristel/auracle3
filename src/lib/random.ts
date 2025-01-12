@@ -20,3 +20,11 @@ export function sfc32(a: number, b: number, c: number, d: number): () => number 
     }
     return rng
 }
+
+export function pickRandom<T>(rng: () => number, options: T[]): T {
+    if (options.length === 0) {
+        throw new RangeError("Cannot pickRandom from an empty array")
+    }
+    const index = Math.floor(rng() * options.length)
+    return options[index]
+}

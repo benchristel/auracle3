@@ -1,4 +1,4 @@
-import {sfc32} from "../lib/random"
+import {pickRandom, sfc32} from "../lib/random"
 import type {Model} from "./analysis"
 
 export const generate = (rng: () => number, model: Model) => {
@@ -50,11 +50,3 @@ test("generate", {
         expect(generate(rng, model), equals, ["shabl"])
     },
 })
-
-function pickRandom<T>(rng: () => number, options: T[]): T {
-    if (options.length === 0) {
-        throw new RangeError("Cannot pickRandom from an empty array")
-    }
-    const index = Math.floor(rng() * options.length)
-    return options[index]
-}
