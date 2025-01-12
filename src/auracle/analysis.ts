@@ -39,7 +39,7 @@ export class AnalyzedModel implements Model {
 
     segments(): string[] {
         const words = this.words()
-        return words.flatMap((word) => word.split(""))
+        return words.flatMap(segmentsOfWord)
     }
 
     vowelSegments(): string[] {
@@ -58,3 +58,13 @@ export class AnalyzedModel implements Model {
 function splitIntoWords(text: string): string[] {
     return text.split(/\W+/)
 }
+
+function segmentsOfWord(word: string): string[] {
+    return word.split("")
+}
+
+test("segmentsOfWord", {
+    "given 'cap'"() {
+        expect(segmentsOfWord("cap"), equals, ["c", "a", "p"])
+    },
+})
