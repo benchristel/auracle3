@@ -9,10 +9,6 @@ export const generate = (rng: () => number, model: Model) => {
     return [`${initial}${vowel}${final}`]
 }
 
-function reverse(s: string): string {
-    return s.split("").reverse().join("")
-}
-
 class StubModel implements Model {
     segments(): string[] {
         return []
