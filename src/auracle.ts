@@ -1,5 +1,5 @@
 import {trimMargin} from "@benchristel/taste"
-import {analyze} from "./auracle/analyze"
+import {Model, analyze} from "./auracle/analysis"
 
 export function pastiche(input: string): string {
     return format(generate(analyze(input)))
@@ -50,7 +50,7 @@ function matches(pattern: RegExp, actual: string) {
     return pattern.test(actual)
 }
 
-const generate = (words: string[]) => words.map(reverse)
+const generate = (model: Model) => model.words().map(reverse)
 
 function format(words: string[]): string {
     return words
