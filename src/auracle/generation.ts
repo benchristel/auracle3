@@ -22,10 +22,6 @@ class StubModel implements Model {
         return ["a", "i"]
     }
 
-    template() {
-
-    }
-
     words() {
         return []
     }
