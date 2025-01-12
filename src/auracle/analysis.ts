@@ -18,23 +18,29 @@ test("a Model", {
 export interface Model {
     words(): string[];
     segments(): string[];
+    vowelSegments(): string[];
+    consonantSegments(): string[];
 }
 
-export class AnalyzedModel {
+export class AnalyzedModel implements Model {
     constructor(private input: string) {}
 
     words() {
         return splitIntoWords(this.input)
     }
 
-    segments() {
+    segments(): string[] {
         return []
     }
-}
 
-const stubModel: Model = {
-    words: () => [],
-    segments: () => [],
+    vowelSegments(): string[] {
+        // TODO
+        return []
+    }
+
+    consonantSegments(): string[] {
+        return []
+    }
 }
 
 function splitIntoWords(text: string): string[] {
