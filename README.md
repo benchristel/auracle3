@@ -8,20 +8,20 @@ typechecker
 locally
 ```
 
-count syllables:
-
-```
-packages - 3
-typechecker - 4
-locally - 3
-```
-
 split into segments:
 
 ```
 p.a.ck.a.g.e.s
 t.y.p.e.ch.e.ck.e.r
 l.o.c.a.ll.y.0
+```
+
+count syllables:
+
+```
+packages - 3
+typechecker - 4
+locally - 3
 ```
 
 categorize consonants and vowels:
