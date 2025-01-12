@@ -1,6 +1,7 @@
 import {h} from "preact"
 import {useState} from "preact/hooks"
 import "./app.css"
+import {pastiche} from "./auracle"
 
 export function App() {
     const [input, setInput] = useState("")
@@ -12,7 +13,7 @@ export function App() {
                 onInput={(e) => setInput(e.currentTarget.value)}
             />
             <textarea
-                value={input}
+                value={pastiche(input)}
             />
         </div>
     )
