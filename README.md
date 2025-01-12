@@ -24,7 +24,7 @@ typechecker - 4
 locally - 3
 ```
 
-categorize consonants and vowels:
+categorize segments into consonants and vowels:
 
 ```
 medial consonants: ck g p ch ck c ll
@@ -35,11 +35,14 @@ vowels: a a e y e e e o a y
 
 ## Generation
 
-pick a random number of syllables, and create a template
+pick a random number of syllables, and create a template:
 
 ```
 CVCVCVC
 ```
+
+replace each `C` with a random consonant segment, and each `V`
+with a random vowel segment.
 
 ```
 tagaper
