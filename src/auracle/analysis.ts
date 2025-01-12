@@ -7,6 +7,12 @@ test("a Model", {
         const model = analyze("cabbage")
         expect(model.words(), equals, ["cabbage"])
     },
+
+    "knows segments"() {
+        debug("TODO")
+        // const model = analyze("cabbage")
+        // expect(model.segments(), equals, ["c", "a", "bb", "a", "g", "e"])
+    },
 })
 
 export class Model {
@@ -14,6 +20,10 @@ export class Model {
 
     words() {
         return splitIntoWords(this.input)
+    }
+
+    segments() {
+        return []
     }
 }
 
