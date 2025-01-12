@@ -1,9 +1,4 @@
-# Preact, TypeScript, Vite, @benchristel/taste
-
-## Creating a new project from this template repo
-
-1. Click the "Use this template" button on GitHub.
-2. Clone the created repo.
+# Auracle 3
 
 ## Development
 
