@@ -1,9 +1,9 @@
 export function analyze(text: string): AnalyzedModel | null {
-    const model = new AnalyzedModel(text)
-    if (!model.isValid()) {
+    try {
+        return new AnalyzedModel(text)
+    } catch (e) {
         return null
     }
-    return model
 }
 
 test("a Model", {
@@ -27,7 +27,11 @@ export interface Model {
 }
 
 export class AnalyzedModel implements Model {
-    constructor(private input: string) {}
+    constructor(private input: string) {
+        if (!this.isValid()) {
+            throw new Error("AnalyzedModel: nothing to analyze")
+        }
+    }
 
     words() {
         return splitIntoWords(this.input)
@@ -46,7 +50,7 @@ export class AnalyzedModel implements Model {
         return this.segments()
     }
 
-    isValid() {
+    private isValid() {
         return this.segments().length > 0
     }
 }
