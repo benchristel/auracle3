@@ -1,12 +1,19 @@
 import {h} from "preact"
+import {useState} from "preact/hooks"
 import "./app.css"
 
 export function App() {
-    return <h1>Hello from Preact!</h1>
-}
+    const [input, setInput] = useState("")
 
-test("App", {
-    "renders a greeting"() {
-        expect(App().props.children, equals, "Hello from Preact!")
-    },
-})
+    return (
+        <div>
+            <textarea
+                value={input}
+                onInput={(e) => setInput(e.currentTarget.value)}
+            />
+            <textarea
+                value={input}
+            />
+        </div>
+    )
+}
