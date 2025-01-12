@@ -1,5 +1,5 @@
 import {trimMargin} from "@benchristel/taste"
-import {Model, analyze} from "./auracle/analysis"
+import {AnalyzedModel, analyze} from "./auracle/analysis"
 import {generate} from "./auracle/generation"
 
 export function pastiche(input: string): string {

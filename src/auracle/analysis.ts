@@ -1,5 +1,5 @@
-export function analyze(text: string): Model {
-    return new Model(text)
+export function analyze(text: string): AnalyzedModel {
+    return new AnalyzedModel(text)
 }
 
 test("a Model", {
@@ -15,7 +15,12 @@ test("a Model", {
     },
 })
 
-export class Model {
+export interface Model {
+    words(): string[];
+    segments(): string[];
+}
+
+export class AnalyzedModel {
     constructor(private input: string) {}
 
     words() {
@@ -25,6 +30,11 @@ export class Model {
     segments() {
         return []
     }
+}
+
+const stubModel: Model = {
+    words: () => [],
+    segments: () => [],
 }
 
 function splitIntoWords(text: string): string[] {
