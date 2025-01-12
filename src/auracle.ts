@@ -1,53 +1,53 @@
 import {trimMargin} from "@benchristel/taste"
 import {AnalyzedModel, analyze} from "./auracle/analysis"
 import {generate} from "./auracle/generation"
+import {sfc32} from "./lib/random"
 
 export function pastiche(input: string): string {
-    // TODO: create a real random number generator
-    return format(generate(() => 0, analyze(input)))
+    if (input === "") {
+        return ""
+    }
+    return format(generate(sfc32(0, 0, 0, 0), analyze(input)))
 }
 
 test("pastiche", {
     "generates newline-separated words"() {
-        debug("TODO")
-        // const input = trimMargin`
-        //     calculator
-        //     bespectacled
-        //     frog
+        const input = trimMargin`
+            calculator
+            bespectacled
+            frog
 
-        //     `
+            `
 
-        // expect(pastiche(input), matches, /^\S+\n\S+\n\S+\n/)
+        expect(pastiche(input), matches, /^\S+\n\S+\n\S+\n/)
     },
 
     "does not repeat the input"() {
-        debug("TODO")
-        // const input = trimMargin`
-        //     calculator
-        //     bespectacled
-        //     frog
+        const input = trimMargin`
+            calculator
+            bespectacled
+            frog
 
-        //     `
+            `
 
-        // expect(pastiche(input), not(matches), /calculator/)
+        expect(pastiche(input), not(matches), /calculator/)
     },
 
     "returns a different output for a different input"() {
-        debug("TODO")
-        // const english = trimMargin`
-        //     calculator
-        //     bespectacled
-        //     frog
+        const english = trimMargin`
+            calculator
+            bespectacled
+            frog
 
-        //     `
-        // const spanish = trimMargin`
-        //     calculadora
-        //     anteojado
-        //     raña
+            `
+        const spanish = trimMargin`
+            calculadora
+            anteojado
+            raña
 
-        //     `
+            `
 
-        // expect(pastiche(spanish), not(is), pastiche(english))
+        expect(pastiche(spanish), not(is), pastiche(english))
     },
 })
 

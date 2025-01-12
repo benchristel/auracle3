@@ -30,16 +30,15 @@ export class AnalyzedModel implements Model {
     }
 
     segments(): string[] {
-        return []
+        return this.words().flatMap((word) => word.split(""))
     }
 
     vowelSegments(): string[] {
-        // TODO
-        return []
+        return this.segments()
     }
 
     consonantSegments(): string[] {
-        return []
+        return this.segments()
     }
 }
 
