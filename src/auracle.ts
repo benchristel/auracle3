@@ -4,28 +4,6 @@ export function pastiche(input: string): string {
     return format(generate(analyze(input)))
 }
 
-const analyze = splitIntoWords
-
-const generate = (words: string[]) => words.map(reverse)
-
-function format(words: string[]): string {
-    return words
-        .map(line)
-        .join("")
-}
-
-function splitIntoWords(text: string): string[] {
-    return text.split(/\W+/)
-}
-
-function reverse(s: string): string {
-    return s.split("").reverse().join("")
-}
-
-function line(s: string): string {
-    return s + "\n"
-}
-
 test("pastiche", {
     "generates newline-separated words"() {
         const input = trimMargin`
@@ -69,4 +47,26 @@ test("pastiche", {
 
 function matches(pattern: RegExp, actual: string) {
     return pattern.test(actual)
+}
+
+const analyze = splitIntoWords
+
+const generate = (words: string[]) => words.map(reverse)
+
+function format(words: string[]): string {
+    return words
+        .map(line)
+        .join("")
+}
+
+function splitIntoWords(text: string): string[] {
+    return text.split(/\W+/)
+}
+
+function reverse(s: string): string {
+    return s.split("").reverse().join("")
+}
+
+function line(s: string): string {
+    return s + "\n"
 }
