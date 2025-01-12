@@ -4,13 +4,26 @@ import {generate} from "./auracle/generation"
 import {sfc32} from "./lib/random"
 
 export function pastiche(input: string): string {
-    if (input === "") {
+    const model = analyze(input)
+    if (!model) {
         return ""
     }
-    return format(generate(sfc32(0, 0, 0, 0), analyze(input)))
+    return format(generate(sfc32(0, 0, 0, 0), model))
 }
 
 test("pastiche", {
+    "returns empty given empty"() {
+        expect(pastiche(""), is, "")
+    },
+
+    "returns empty given only whitespace"() {
+        expect(pastiche(" \n"), is, "")
+    },
+
+    "returns empty given only punctuation"() {
+        expect(pastiche("{}"), is, "")
+    },
+
     "generates newline-separated words"() {
         const input = trimMargin`
             calculator

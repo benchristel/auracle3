@@ -1,11 +1,15 @@
-export function analyze(text: string): AnalyzedModel {
-    return new AnalyzedModel(text)
+export function analyze(text: string): AnalyzedModel | null {
+    const model = new AnalyzedModel(text)
+    if (!model.isValid()) {
+        return null
+    }
+    return model
 }
 
 test("a Model", {
     "knows words"() {
         const model = analyze("cabbage")
-        expect(model.words(), equals, ["cabbage"])
+        expect(model?.words(), equals, ["cabbage"])
     },
 
     "knows segments"() {
@@ -30,7 +34,8 @@ export class AnalyzedModel implements Model {
     }
 
     segments(): string[] {
-        return this.words().flatMap((word) => word.split(""))
+        const words = this.words()
+        return words.flatMap((word) => word.split(""))
     }
 
     vowelSegments(): string[] {
@@ -39,6 +44,10 @@ export class AnalyzedModel implements Model {
 
     consonantSegments(): string[] {
         return this.segments()
+    }
+
+    isValid() {
+        return this.segments().length > 0
     }
 }
 
