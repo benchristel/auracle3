@@ -1,10 +1,20 @@
 import {trimMargin} from "@benchristel/taste"
 
 export function pastiche(input: string): string {
-    return words(input).map(reverse).map(line).join("")
+    return format(generate(analyze(input)))
 }
 
-function words(text: string): string[] {
+const analyze = splitIntoWords
+
+const generate = (words: string[]) => words.map(reverse)
+
+function format(words: string[]): string {
+    return words
+        .map(line)
+        .join("")
+}
+
+function splitIntoWords(text: string): string[] {
     return text.split(/\W+/)
 }
 
