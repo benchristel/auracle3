@@ -1,4 +1,5 @@
 import {trimMargin} from "@benchristel/taste"
+import {analyze} from "./auracle/analyze"
 
 export function pastiche(input: string): string {
     return format(generate(analyze(input)))
@@ -40,16 +41,14 @@ test("pastiche", {
             raña
 
             `
-        
+
         expect(pastiche(spanish), not(is), pastiche(english))
-    }
+    },
 })
 
 function matches(pattern: RegExp, actual: string) {
     return pattern.test(actual)
 }
-
-const analyze = splitIntoWords
 
 const generate = (words: string[]) => words.map(reverse)
 
@@ -57,10 +56,6 @@ function format(words: string[]): string {
     return words
         .map(line)
         .join("")
-}
-
-function splitIntoWords(text: string): string[] {
-    return text.split(/\W+/)
 }
 
 function reverse(s: string): string {
