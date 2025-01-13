@@ -13,9 +13,8 @@ test("a Model", {
     },
 
     "knows segments"() {
-        debug("TODO")
-        // const model = analyze("cabbage")
-        // expect(model.segments(), equals, ["c", "a", "bb", "a", "g", "e"])
+        const model = analyze("cabbage")
+        expect(model?.segments(), equals, ["c", "a", "bb", "a", "g", "e"])
     },
 })
 
