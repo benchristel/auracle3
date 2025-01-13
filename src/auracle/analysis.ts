@@ -43,11 +43,11 @@ export class AnalyzedModel implements Model {
     }
 
     vowelSegments(): string[] {
-        return this.segments()
+        return this.segments().filter(isVowel)
     }
 
     consonantSegments(): string[] {
-        return this.segments()
+        return this.segments().filter(not(isVowel))
     }
 
     private isValid() {
@@ -86,7 +86,7 @@ test("segmentsOfWord", {
 })
 
 function classifyLetter(letter: string): "vowel" | "consonant" {
-    return "aeiou".includes(letter) ? "vowel" : "consonant"
+    return isVowel(letter) ? "vowel" : "consonant"
 }
 
 test("classifyLetter", {
@@ -98,3 +98,7 @@ test("classifyLetter", {
         expect(classifyLetter("b"), is, "consonant")
     },
 })
+
+function isVowel(letter: string) {
+    return "aeiou".includes(letter)
+}
