@@ -1,9 +1,11 @@
+import {countTo} from "../lib/iteration"
 import {pickRandom, sfc32} from "../lib/random"
 import type {Model, WordTemplate} from "./analysis"
 
 export const generate = (rng: () => number, model: Model) => {
     return countTo(3).map(() => {
         const template = pickRandom(rng, model.templates())
+        // TODO: remove unused consts
         const initial = pickRandom(rng, model.consonantSegments())
         const final = pickRandom(rng, model.consonantSegments())
         const vowel = pickRandom(rng, model.vowelSegments())
@@ -68,6 +70,3 @@ test("generate", {
     },
 })
 
-function countTo(n: number): undefined[] {
-    return new Array(n).fill(undefined)
-}
