@@ -60,11 +60,41 @@ function splitIntoWords(text: string): string[] {
 }
 
 function segmentsOfWord(word: string): string[] {
-    return word.split("")
+    const segments: string[] = []
+    for (let i = 0; i < word.length; i++) {
+        const currentLetter = word[i]
+        const previousLetter = word[i - 1]
+        const atBoundary = classifyLetter(currentLetter) !== classifyLetter(previousLetter)
+        const lastIndex = segments.length - 1
+        if (!previousLetter || atBoundary) {
+            segments.push(word[i])
+        } else {
+            segments[lastIndex] += word[i]
+        }
+    }
+    return segments
 }
 
 test("segmentsOfWord", {
     "given 'cap'"() {
         expect(segmentsOfWord("cap"), equals, ["c", "a", "p"])
+    },
+
+    "given 'draggled'"() {
+        expect(segmentsOfWord("draggled"), equals, ["dr", "a", "ggl", "e", "d"])
+    },
+})
+
+function classifyLetter(letter: string): "vowel" | "consonant" {
+    return "aeiou".includes(letter) ? "vowel" : "consonant"
+}
+
+test("classifyLetter", {
+    "says 'a' is a vowel"() {
+        expect(classifyLetter("a"), is, "vowel")
+    },
+
+    "says 'b' is a consonant"() {
+        expect(classifyLetter("b"), is, "consonant")
     },
 })
