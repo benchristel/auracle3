@@ -23,7 +23,10 @@ export interface Model {
     segments(): string[];
     vowelSegments(): string[];
     consonantSegments(): string[];
+    templates(): WordTemplate[];
 }
+
+export type WordTemplate = ("C" | "V")[]
 
 export class AnalyzedModel implements Model {
     constructor(private input: string) {
@@ -49,8 +52,16 @@ export class AnalyzedModel implements Model {
         return this.segments().filter(not(isVowel))
     }
 
+    templates(): WordTemplate[] {
+        return [
+            ["C", "V", "C"],
+            ["C", "V", "C", "V", "C"],
+        ]
+    }
+
     private isValid() {
-        return this.segments().length > 0
+        return this.vowelSegments().length > 0
+            && this.consonantSegments().length > 0
     }
 }
 

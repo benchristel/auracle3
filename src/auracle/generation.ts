@@ -1,13 +1,18 @@
 import {pickRandom, sfc32} from "../lib/random"
-import type {Model} from "./analysis"
+import type {Model, WordTemplate} from "./analysis"
 
 export const generate = (rng: () => number, model: Model) => {
     return countTo(3).map(() => {
+        const template = pickRandom(rng, model.templates())
         const initial = pickRandom(rng, model.consonantSegments())
         const final = pickRandom(rng, model.consonantSegments())
         const vowel = pickRandom(rng, model.vowelSegments())
 
-        return `${initial}${vowel}${final}`
+        return template.map((placeholder) => {
+            return placeholder === "C"
+                ? pickRandom(rng, model.consonantSegments())
+                : pickRandom(rng, model.vowelSegments())
+        }).join("")
     })
 }
 
@@ -27,6 +32,13 @@ class StubModel implements Model {
     words() {
         return []
     }
+
+    templates(): WordTemplate[] {
+        return [
+            ["C", "V", "C"],
+            ["C", "V", "C", "V", "C"],
+        ]
+    }
 }
 
 test("generate", {
@@ -41,7 +53,18 @@ test("generate", {
         const model = new StubModel()
         const rng = sfc32(0, 0, 0, 1)
 
-        expect(generate(rng, model)[0], equals, "shabl")
+        expect(generate(rng, model)[0], equals, "rgirgarg")
+    },
+
+    "generates words of different lengths"() {
+        const model = new StubModel()
+        const rng = sfc32(0, 0, 0, 1)
+
+        expect(generate(rng, model), equals, [
+            "rgirgarg",
+            "firg",
+            "firg",
+        ])
     },
 })
 
