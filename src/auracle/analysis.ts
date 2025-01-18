@@ -110,8 +110,8 @@ function segmentsOfWord(word: string): string[] {
         const currentLetter = word[i]
         const previousLetter = word[i - 1]
         const atBoundary =
-            classifyLetter(currentLetter, word.slice(0, i))
-            !== classifyLetter(previousLetter, word.slice(0, i - 1))
+            classifyLetter(word, i)
+            !== classifyLetter(word, i - 1)
         const lastIndex = segments.length - 1
         if (!previousLetter || atBoundary) {
             segments.push(word[i])
@@ -152,7 +152,9 @@ function countVowelSegments(word: string): number {
     return segmentsOfWord(word).filter(isVowel).length
 }
 
-function classifyLetter(letter: string, preface: string): "vowel" | "consonant" {
+function classifyLetter(word: string, index: number): "vowel" | "consonant" {
+    const preface = word.slice(0, index)
+    const letter = word[index]
     if (preface.endsWith("q") && letter === "u") {
         return "consonant"
     }
