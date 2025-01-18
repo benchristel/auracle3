@@ -108,7 +108,6 @@ function splitIntoWords(text: string): string[] {
 function segmentsOfWord(word: string): string[] {
     const segments: string[] = []
     for (let i = 0; i < word.length; i++) {
-        const currentLetter = word[i]
         const previousLetter = word[i - 1]
         const atBoundary =
             classifyLetter(word, i)
@@ -271,7 +270,3 @@ test("isVowel", {
         expect(isVowel("ie"), is, true)
     },
 })
-
-function empty(s: string): boolean {
-    return s.length === 0
-}
