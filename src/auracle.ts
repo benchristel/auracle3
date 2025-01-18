@@ -1,5 +1,5 @@
 import {trimMargin} from "@benchristel/taste"
-import {AnalyzedModel, analyze} from "./auracle/analysis"
+import {analyze} from "./auracle/analysis"
 import {generate} from "./auracle/generation"
 import {sfc32} from "./lib/random"
 

@@ -1,4 +1,4 @@
-import {invertMap, mapValues} from "../lib/objects"
+import {invertMap, mapValues} from "../../lib/objects"
 
 export function estimatedSonority(letter: string): number | undefined {
     return letterSonority[letter]
