@@ -1,4 +1,5 @@
 import {countTo} from "../lib/iteration"
+import {estimatedSonority} from "./alphabet"
 
 export function analyze(text: string): AnalyzedModel | null {
     try {
@@ -146,6 +147,14 @@ test("segmentsOfWord", {
             ["qu", "ee", "n"],
         )
     },
+
+    "treats u as a vowel between q and a consonant"() {
+        expect(
+            segmentsOfWord("quds"),
+            equals,
+            ["q", "u", "ds"],
+        )
+    },
 })
 
 function countVowelSegments(word: string): number {
@@ -155,6 +164,9 @@ function countVowelSegments(word: string): number {
 function classifyLetter(word: string, index: number): "vowel" | "consonant" {
     const preface = word.slice(0, index)
     const letter = word[index]
+    if (letter === "u" && isLocalSonorityMaximum(word, index)) {
+        return "vowel"
+    }
     if (preface.endsWith("q") && letter === "u") {
         return "consonant"
     }
@@ -167,6 +179,11 @@ const templateOfLength = (numVowels: number): ("C" | "V")[] => {
 
 function isVowel(letter: string) {
     return !!letter && "aeiouAEIOU".includes(letter[0])
+}
+
+function isLocalSonorityMaximum(word: string, index: number): boolean {
+    return estimatedSonority(word[index]) > estimatedSonority(word[index + 1])
+        && estimatedSonority(word[index]) > estimatedSonority(word[index - 1])
 }
 
 test("isVowel", {
