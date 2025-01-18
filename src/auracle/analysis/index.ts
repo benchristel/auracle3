@@ -1,10 +1,10 @@
-import {AnalyzedModel} from "./analyzed-model"
+import {CorpusModel} from "./corpus-model"
 
 export * from "./types"
 
-export function analyze(text: string): AnalyzedModel | null {
+export function analyze(text: string): CorpusModel | null {
     try {
-        return new AnalyzedModel(text)
+        return new CorpusModel(text)
     } catch (e) {
         return null
     }

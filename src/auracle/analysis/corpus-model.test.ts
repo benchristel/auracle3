@@ -1,12 +1,12 @@
 import {analyze} from "."
 
-test("a Model", {
-    "knows words"() {
+test("a CorpusModel", {
+    "knows the words from the corpus"() {
         const model = analyze("cabbage")
         expect(model?.words(), equals, ["cabbage"])
     },
 
-    "knows segments"() {
+    "knows the segments of those words"() {
         const model = analyze("cabbage")
         expect(model?.segments(), equals, ["c", "a", "bb", "a", "g", "e"])
     },

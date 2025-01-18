@@ -2,10 +2,10 @@ import {countTo} from "../../lib/iteration"
 import {countVowelSegments, isVowel, segmentsOfWord} from "./segments"
 import type {Model, WordTemplate} from "./types"
 
-export class AnalyzedModel implements Model {
+export class CorpusModel implements Model {
     constructor(private input: string) {
         if (!this.isValid()) {
-            throw new Error("AnalyzedModel: nothing to analyze")
+            throw new Error("CorpusModel: no words in corpus")
         }
     }
 
