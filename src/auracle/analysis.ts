@@ -109,7 +109,9 @@ function segmentsOfWord(word: string): string[] {
     for (let i = 0; i < word.length; i++) {
         const currentLetter = word[i]
         const previousLetter = word[i - 1]
-        const atBoundary = classifyLetter(currentLetter) !== classifyLetter(previousLetter)
+        const atBoundary =
+            classifyLetter(currentLetter, word.slice(0, i))
+            !== classifyLetter(previousLetter, word.slice(0, i - 1))
         const lastIndex = segments.length - 1
         if (!previousLetter || atBoundary) {
             segments.push(word[i])
@@ -136,13 +138,24 @@ test("segmentsOfWord", {
             ["b", "ee", "k", "ee", "p", "e", "r"],
         )
     },
+
+    "treats qu as a consonant cluster"() {
+        expect(
+            segmentsOfWord("queen"),
+            equals,
+            ["qu", "ee", "n"],
+        )
+    },
 })
 
 function countVowelSegments(word: string): number {
     return segmentsOfWord(word).filter(isVowel).length
 }
 
-function classifyLetter(letter: string): "vowel" | "consonant" {
+function classifyLetter(letter: string, preface: string): "vowel" | "consonant" {
+    if (preface.endsWith("q") && letter === "u") {
+        return "consonant"
+    }
     return isVowel(letter) ? "vowel" : "consonant"
 }
 
@@ -152,11 +165,11 @@ const templateOfLength = (numVowels: number): ("C" | "V")[] => {
 
 test("classifyLetter", {
     "says 'a' is a vowel"() {
-        expect(classifyLetter("a"), is, "vowel")
+        expect(classifyLetter("a", ""), is, "vowel")
     },
 
     "says 'b' is a consonant"() {
-        expect(classifyLetter("b"), is, "consonant")
+        expect(classifyLetter("b", ""), is, "consonant")
     },
 })
 
