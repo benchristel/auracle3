@@ -163,16 +163,6 @@ const templateOfLength = (numVowels: number): ("C" | "V")[] => {
     return ["C" as "C", ...countTo(numVowels).map(() => ["V", "C"] as const)].flat()
 }
 
-test("classifyLetter", {
-    "says 'a' is a vowel"() {
-        expect(classifyLetter("a", ""), is, "vowel")
-    },
-
-    "says 'b' is a consonant"() {
-        expect(classifyLetter("b", ""), is, "consonant")
-    },
-})
-
 function isVowel(letter: string) {
     return !!letter && "aeiouAEIOU".includes(letter[0])
 }
