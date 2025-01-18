@@ -121,25 +121,20 @@ function segmentsOfWord(word: string): string[] {
 }
 
 test("segmentsOfWord", {
-    "given 'cap'"() {
+    "separates consonants from vowels"() {
         expect(segmentsOfWord("cap"), equals, ["c", "a", "p"])
     },
 
-    "given 'draggled'"() {
+    "keeps runs of consonants together"() {
         expect(segmentsOfWord("draggled"), equals, ["dr", "a", "ggl", "e", "d"])
     },
 
-    "given 'engineering'"() {
-        expect(segmentsOfWord("engineering"), equals, [
-            "e",
-            "ng",
-            "i",
-            "n",
-            "ee",
-            "r",
-            "i",
-            "ng",
-        ])
+    "keeps runs of vowels together"() {
+        expect(
+            segmentsOfWord("beekeeper"),
+            equals,
+            ["b", "ee", "k", "ee", "p", "e", "r"],
+        )
     },
 })
 
