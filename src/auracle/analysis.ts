@@ -34,6 +34,24 @@ test("a Model", {
             ["C", "V", "C"],
         ])
     },
+
+    "knows which consonant segments exist"() {
+        const model = analyze("cat")
+        expect(
+            new Set(model?.consonantSegments()),
+            equals,
+            new Set(["c", "t"]),
+        )
+    },
+
+    "knows which vowel segments exist"() {
+        const model = analyze("catamorphism")
+        expect(
+            new Set(model?.vowelSegments()),
+            equals,
+            new Set(["a", "a", "o", "i"]),
+        )
+    },
 })
 
 export interface Model {
