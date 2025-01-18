@@ -155,6 +155,62 @@ test("segmentsOfWord", {
             ["q", "u", "ds"],
         )
     },
+
+    "treats y as a vowel between a consonant and the end of the word"() {
+        expect(
+            segmentsOfWord("sky"),
+            equals,
+            ["sk", "y"],
+        )
+    },
+
+    "treats y as a vowel between a consonant and the beginning of the word"() {
+        expect(
+            segmentsOfWord("yvonne"),
+            equals,
+            ["y", "v", "o", "nn", "e"],
+        )
+    },
+
+    "treats y as a vowel between consonants"() {
+        expect(
+            segmentsOfWord("system"),
+            equals,
+            ["s", "y", "st", "e", "m"],
+        )
+    },
+
+    "treats y as a consonant before a vowel"() {
+        expect(
+            segmentsOfWord("gyoza"),
+            equals,
+            ["gy", "o", "z", "a"],
+        )
+    },
+
+    "treats y as a consonant between vowels"() {
+        expect(
+            segmentsOfWord("maya"),
+            equals,
+            ["m", "a", "y", "a"],
+        )
+    },
+
+    "treats y as a vowel at the end of the word after a vowel"() {
+        expect(
+            segmentsOfWord("hoy"),
+            equals,
+            ["h", "oy"],
+        )
+    },
+
+    "treats y as a vowel between a vowel and a consonant"() {
+        expect(
+            segmentsOfWord("aymara"),
+            equals,
+            ["ay", "m", "a", "r", "a"],
+        )
+    },
 })
 
 function countVowelSegments(word: string): number {
@@ -164,7 +220,10 @@ function countVowelSegments(word: string): number {
 function classifyLetter(word: string, index: number): "vowel" | "consonant" {
     const preface = word.slice(0, index)
     const letter = word[index]
-    if (letter === "u" && isLocalSonorityMaximum(word, index)) {
+    if ("uy".includes(letter) && isLocalSonorityMaximum(word, index)) {
+        return "vowel"
+    }
+    if ("y".includes(letter) && isSonorityDecreasing(word, index)) {
         return "vowel"
     }
     if (preface.endsWith("q") && letter === "u") {
@@ -182,8 +241,17 @@ function isVowel(letter: string) {
 }
 
 function isLocalSonorityMaximum(word: string, index: number): boolean {
-    return estimatedSonority(word[index]) > estimatedSonority(word[index + 1])
-        && estimatedSonority(word[index]) > estimatedSonority(word[index - 1])
+    const before = estimatedSonority(word[index - 1]) ?? 0
+    const here = estimatedSonority(word[index]) ?? 0
+    const after = estimatedSonority(word[index + 1]) ?? 0
+    return before <= here && here > after
+}
+
+function isSonorityDecreasing(word: string, index: number): boolean {
+    const before = estimatedSonority(word[index - 1]) ?? 0
+    const here = estimatedSonority(word[index]) ?? 0
+    const after = estimatedSonority(word[index + 1]) ?? 0
+    return before > here && here > after
 }
 
 test("isVowel", {

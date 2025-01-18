@@ -1,7 +1,7 @@
 import {invertMap, mapValues} from "../lib/objects"
 
-export function estimatedSonority(letter: string): number {
-    return letterSonority[letter] ?? 0
+export function estimatedSonority(letter: string): number | undefined {
+    return letterSonority[letter]
 }
 
 const letterSonority = mapValues(
