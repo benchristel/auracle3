@@ -6,11 +6,10 @@ export function segmentsOfWord(word: string): string[] {
         const atBoundary =
             classifyLetter(word, i)
             !== classifyLetter(word, i - 1)
-        const lastIndex = segments.length - 1
         if (atBoundary) {
             segments.push(word[i])
         } else {
-            segments[lastIndex] += word[i]
+            segments[segments.length - 1] += word[i]
         }
     }
     return segments
