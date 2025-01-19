@@ -72,6 +72,10 @@ test("segmentsOfWord", {
     "treats w as a vowel between a vowel and a consonant"() {
         expect(segmentsOfWord("awful"), equals, ["aw", "f", "u", "l"])
     },
+
+    "keeps wh together at the beginning of a word"() {
+        expect(segmentsOfWord("what"), equals, ["wh", "a", "t"])
+    },
 })
 
 test("isVowel", {
