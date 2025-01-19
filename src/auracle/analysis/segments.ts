@@ -3,12 +3,11 @@ import {estimatedSonority} from "./alphabet"
 export function segmentsOfWord(word: string): string[] {
     const segments: string[] = []
     for (let i = 0; i < word.length; i++) {
-        const previousLetter = word[i - 1]
         const atBoundary =
             classifyLetter(word, i)
             !== classifyLetter(word, i - 1)
         const lastIndex = segments.length - 1
-        if (!previousLetter || atBoundary) {
+        if (atBoundary) {
             segments.push(word[i])
         } else {
             segments[lastIndex] += word[i]
@@ -21,9 +20,12 @@ export function countVowelSegments(word: string): number {
     return segmentsOfWord(word).filter(isVowel).length
 }
 
-function classifyLetter(word: string, index: number): "vowel" | "consonant" {
-    const preface = word.slice(0, index)
+function classifyLetter(word: string, index: number): "vowel" | "consonant" | null {
     const letter = word[index]
+    if (letter == null) {
+        return null
+    }
+    const preface = word.slice(0, index)
     if ("uy".includes(letter) && isLocalSonorityMaximum(word, index)) {
         return "vowel"
     }
