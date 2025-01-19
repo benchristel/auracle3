@@ -42,6 +42,6 @@ function splitIntoWords(text: string): string[] {
     return text.split(/\W+/)
 }
 
-const templateOfLength = (numVowels: number): ("C" | "V")[] => {
+const templateOfLength = (numVowels: number): WordTemplate => {
     return ["C" as "C", ...countTo(numVowels).map(() => ["V", "C"] as const)].flat()
 }
