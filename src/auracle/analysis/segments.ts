@@ -27,7 +27,7 @@ function classifyLetter(word: string, index: number): "vowel" | "consonant" {
     if ("uy".includes(letter) && isLocalSonorityMaximum(word, index)) {
         return "vowel"
     }
-    if ("y".includes(letter) && isSonorityDecreasing(word, index)) {
+    if ("yw".includes(letter) && isSonorityDecreasing(word, index)) {
         return "vowel"
     }
     if (preface.endsWith("q") && letter === "u") {

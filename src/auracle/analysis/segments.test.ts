@@ -52,6 +52,26 @@ test("segmentsOfWord", {
     "treats y as a vowel between a vowel and a consonant"() {
         expect(segmentsOfWord("aymara"), equals, ["ay", "m", "a", "r", "a"])
     },
+
+    "treats w as a consonant at the beginning of a word before a vowel"() {
+        expect(segmentsOfWord("wa"), equals, ["w", "a"])
+    },
+
+    "treats w as a consonant after a vowel"() {
+        expect(segmentsOfWord("twee"), equals, ["tw", "ee"])
+    },
+
+    "treats w as a consonant between vowels"() {
+        expect(segmentsOfWord("away"), equals, ["a", "w", "ay"])
+    },
+
+    "treats w as a vowel at the end of a word after a vowel"() {
+        expect(segmentsOfWord("saw"), equals, ["s", "aw"])
+    },
+
+    "treats w as a vowel between a vowel and a consonant"() {
+        expect(segmentsOfWord("awful"), equals, ["aw", "f", "u", "l"])
+    },
 })
 
 test("isVowel", {
