@@ -76,6 +76,10 @@ test("segmentsOfWord", {
     "keeps wh together at the beginning of a word"() {
         expect(segmentsOfWord("what"), equals, ["wh", "a", "t"])
     },
+
+    "keeps yy together"() {
+        expect(segmentsOfWord("kyyl"), equals, ["k", "yy", "l"])
+    },
 })
 
 test("isVowel", {

@@ -43,9 +43,14 @@ export function isVowel(letter: string) {
 }
 
 function isLocalSonorityMaximum(word: string, index: number): boolean {
+    let nextIndex = index + 1
+    while (nextIndex < word.length) {
+        if (word[index] !== word[nextIndex]) break
+        nextIndex++
+    }
     const before = estimatedSonority(word[index - 1]) ?? 0
     const here = estimatedSonority(word[index]) ?? 0
-    const after = estimatedSonority(word[index + 1]) ?? 0
+    const after = estimatedSonority(word[nextIndex]) ?? 0
     return before <= here && here > after
 }
 
